@@ -1,38 +1,38 @@
-# sv
+# Reproduction Steps
 
-Everything you need to build a Svelte project, powered by [`sv`](https://github.com/sveltejs/cli).
-
-## Creating a project
-
-If you're seeing this, you've probably already done this step. Congrats!
-
-```bash
-# create a new project in the current directory
-npx sv create
-
-# create a new project in my-app
-npx sv create my-app
+1. Run dev server
+``bun run dev``
+2. Make a change (ex. /src/routes/+page.svelte)
 ```
+<h1>Welcome to SvelteKit</h1>
+<p>Visit <a href="https://svelte.dev/docs/kit">svelte.dev/docs/kit</a> to read the documentation</p>
 
-## Developing
-
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
-
-```bash
-npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
+<h2>jj is really cool</h2>
 ```
-
-## Building
-
-To create a production version of your app:
-
-```bash
-npm run build
+3. Save the change and view debug console to encounter the following error
 ```
+22190 |         sysPath$2.resolve(path, evPath), KEY_LISTENERS, sysPath$2.join(path, evPath)
+22191 |       );
+22192 |     }
+22193 |   };
+22194 |   try {
+22195 |     return fs$4.watch(path, options, handleEvent);
+                        ^
+EINVAL: invalid argument, watch '/kit-jj-incompat-repro/.jj/working_copy/working_copy.lock'
+     path: "/kit-jj-incompat-repro/.jj/working_copy/working_copy.lock",
+  syscall: "watch",
+    errno: -22,
+ filename: "/kit-jj-incompat-repro/.jj/working_copy/working_copy.lock",
+     code: "EINVAL"
 
-You can preview the production build with `npm run preview`.
+      at new FSWatcher (node:fs:30:31)
+      at watch (node:fs:295:10)
+      at createFsWatchInstance (/kit-jj-incompat-repro/node_modules/vite/dist/node/chunks/dep-DBxKXgDP.js:22195:17)
+      at setFsWatchListener (/kit-jj-incompat-repro/node_modules/vite/dist/node/chunks/dep-DBxKXgDP.js:22242:15)
+      at _watchWithNodeFs (/kit-jj-incompat-repro/node_modules/vite/dist/node/chunks/dep-DBxKXgDP.js:22397:14)
+      at _handleFile (/kit-jj-incompat-repro/node_modules/vite/dist/node/chunks/dep-DBxKXgDP.js:22461:23)
+      at _addToNodeFs (/kit-jj-incompat-repro/node_modules/vite/dist/node/chunks/dep-DBxKXgDP.js:22703:21)
 
-> To deploy your app, you may need to install an [adapter](https://svelte.dev/docs/kit/adapters) for your target environment.
+Bun v1.2.11 (Linux x64 baseline)
+error: script "dev" exited with code 1
+```
